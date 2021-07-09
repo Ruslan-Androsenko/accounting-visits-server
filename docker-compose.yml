@@ -4,6 +4,8 @@ services:
     image: nginx:alpine
     container_name: laravel.accounting-visits-server.server
     working_dir: /app
+    ports:
+      - "8180:80"
     volumes:
       - ./:/app
       - ./.dev/nginx/nginx.conf:/etc/nginx/nginx.conf
