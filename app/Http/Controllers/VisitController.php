@@ -13,11 +13,37 @@ class VisitController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $visits = Visit::with("employee")->get();
+        $visits = Visit::with("employee");
 
-        return response($visits);
+        // Получаем поля для фильтрации и сортировки
+        $filterDate = $request->input("filterDate") ?? "";
+        $filterEmployee = $request->input("filterEmployee") ?? "";
+        $orderByDate = $request->input("orderByDate") ?? "";
+
+        // Фильтрация по дате
+        if (!empty($filterDate)) {
+            $visits->where("created_at", ">=", $filterDate . " 00:00:00");
+            $visits->where("created_at", "<=", $filterDate . " 23:59:59");
+        }
+
+        // Фильтрация по сотруднику
+        if (!empty($filterEmployee)) {
+            $visits->where("employee_id", "=", $filterEmployee);
+        }
+
+        // Сортировка по дате
+        switch ($orderByDate) {
+            case "asc":
+                $visits->orderBy("created_at");
+                break;
+            case "desc":
+                $visits->orderByDesc("created_at");
+                break;
+        }
+
+        return response($visits->get());
     }
 
     /**
