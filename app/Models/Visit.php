@@ -7,10 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
-class Visits extends Model
+class Visit extends Model
 {
     use HasFactory;
     use SoftDeletes;
+
+    protected $fillable = ['type', 'employee_id'];
 
     public function employee()
     {

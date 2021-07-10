@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Visit;
+
 
 class VisitController extends Controller
 {
@@ -13,17 +15,9 @@ class VisitController extends Controller
      */
     public function index()
     {
-        //
-    }
+        $visits = Visit::with("employee")->get();
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return response($visits);
     }
 
     /**
@@ -34,7 +28,22 @@ class VisitController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $visit = Visit::create($request->Visit ?? []);
+
+            $response = [
+                "message" => "Запись успешно создана",
+                "success" => true,
+                "employee" => $visit,
+            ];
+        } catch (\Exception $ex) {
+            $response = [
+                "message" => $ex->getMessage(),
+                "success" => false,
+            ];
+        }
+
+        return response($response);
     }
 
     /**
@@ -44,17 +53,6 @@ class VisitController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
     {
         //
     }

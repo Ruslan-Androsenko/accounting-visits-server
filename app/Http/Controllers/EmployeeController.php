@@ -30,14 +30,14 @@ class EmployeeController extends Controller
             $employee = Employee::firstOrCreate($request->Employee ?? []);
 
             $response = [
-                'message' => 'Запись успешно создана',
-                'success' => true,
-                'employee' => $employee,
+                "message" => "Запись успешно создана",
+                "success" => true,
+                "employee" => $employee,
             ];
         } catch (\Exception $ex) {
             $response = [
-                'message' => $ex->getMessage(),
-                'success' => false,
+                "message" => $ex->getMessage(),
+                "success" => false,
             ];
         }
 
@@ -68,13 +68,13 @@ class EmployeeController extends Controller
             Employee::find($id)->update($request->Employee ?? []);
 
             $response = [
-                'message' => 'Запись успешно сохранена',
-                'success' => true,
+                "message" => "Запись успешно сохранена",
+                "success" => true,
             ];
         } catch (\Exception $ex) {
             $response = [
-                'message' => $ex->getMessage(),
-                'success' => false,
+                "message" => $ex->getMessage(),
+                "success" => false,
             ];
         }
 
@@ -93,13 +93,13 @@ class EmployeeController extends Controller
             Employee::destroy($id);
 
             $response = [
-                'message' => 'Запись успешно удалена',
-                'success' => true,
+                "message" => "Запись успешно удалена",
+                "success" => true,
             ];
         } catch (\Exception $ex) {
             $response = [
-                'message' => $ex->getMessage(),
-                'success' => false,
+                "message" => $ex->getMessage(),
+                "success" => false,
             ];
         }
 

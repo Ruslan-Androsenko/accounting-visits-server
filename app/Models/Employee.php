@@ -18,6 +18,6 @@ class Employee extends Model
 
     public function visits()
     {
-        return $this->hasMany(Visits::class);
+        return $this->hasMany(Visit::class);
     }
 }
